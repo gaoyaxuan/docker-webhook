@@ -1,10 +1,10 @@
 # Dockerfile for https://github.com/adnanh/webhook
 FROM        golang:alpine AS build
-MAINTAINER  Almir Dzinovic <almir@dzinovic.net>
+ARG WEBHOOK_VERSION=2.8.2
 WORKDIR     /go/src/github.com/adnanh/webhook
-ENV         WEBHOOK_VERSION 2.8.2
 RUN         apk add --update -t build-deps curl libc-dev gcc libgcc
-RUN         curl -L --silent -o webhook.tar.gz https://github.com/adnanh/webhook/archive/${WEBHOOK_VERSION}.tar.gz && \
+RUN         echo "----------------------Current tag: ${WEBHOOK_VERSION}----------------------" && \
+            curl -L --silent -o webhook.tar.gz https://github.com/adnanh/webhook/archive/refs/tags/${WEBHOOK_VERSION}.tar.gz && \
             tar -xzf webhook.tar.gz --strip 1
 RUN         go get -d -v
 RUN         CGO_ENABLED=0 go build -ldflags="-s -w" -o /usr/local/bin/webhook
@@ -16,7 +16,15 @@ FROM alpine:3.17
 
 RUN apk --no-cache --no-progress add \
     shadow  \
-    tzdata
+    tzdata  \
+    bash \
+    jq \
+    gawk \
+    sed \
+    curl \
+    openssl
+
+
 
 WORKDIR /app
 
