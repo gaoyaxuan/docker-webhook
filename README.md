@@ -6,6 +6,7 @@ services:
   webhook:
     image: ghcr.io/gaoyaxuan/webhook:latest
     container_name: webhook
+    restart: always
     environment:
       - PUID=1000
       - PGID=1000
@@ -16,7 +17,7 @@ services:
       - ./config/hooks.json:/app/hooks.json:ro
     ports:
       - 127.0.0.1:9000:9000
-    #command: ["-hooks","/app/webhook/hooks.json","-ip","0.0.0.0","-port","9000","-tls-min-version","1.2","-verbose"]
+    #command: ["-hooks","/app/hooks.json","-ip","0.0.0.0","-port","9000","-tls-min-version","1.2","-verbose"]
 
 
 networks:
