@@ -6,7 +6,6 @@ on:
     - cron: '0 8 * * *'
 
 permissions:
-  contents: read
   packages: write  # 使 GITHUB_TOKEN 具有推送到 GHCR 的权限
 
 jobs:
