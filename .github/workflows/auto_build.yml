@@ -3,7 +3,8 @@ name: auto build docker
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 19 * * *'
+    - cron: '0 8 * * *'
+
 permissions:
   contents: read
   packages: write  # 使 GITHUB_TOKEN 具有推送到 GHCR 的权限
@@ -29,7 +30,7 @@ jobs:
           source_release_version=$(curl -s https://api.github.com/repos/adnanh/webhook/releases/latest | jq -r .tag_name| sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
           if [ $release_version == $source_release_version ]; then
             echo "两个仓库tag相同,无需构建, $source_release_version"
-            exit 0
+            exit 1
           else
             echo "当前本仓库最新tag为:$release_version,原仓库最新tag为:$source_release_version"
           fi
