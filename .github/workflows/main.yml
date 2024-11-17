@@ -3,8 +3,8 @@ name: Docker Build
 # Controls when the workflow will run
 on:
   workflow_dispatch:
-#  release:
-#    types: [ created ]
+  release:
+    types: [ created ]
 
 
 jobs:
