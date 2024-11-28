@@ -19,7 +19,7 @@ echo "${checksum}  /usr/sbin/gosu" | sha256sum -cs
 chmod +x /usr/sbin/gosu
 
 
-# Create wh user for Gogs
+# Create wh user for webhook
 addgroup -S wh
 adduser -G wh -H -D -g 'webhook wh user' wh  -s /sbin/nologin && usermod -p '*' wh
 
