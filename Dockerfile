@@ -28,9 +28,6 @@ COPY docker ./docker
 RUN sh ./docker/build.sh && \
     rm docker/build.sh
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-    CMD curl -sf http://localhost:9000/hooks/default || exit 1
-
 EXPOSE 9000
 ENTRYPOINT ["/app/docker/start.sh"]
 CMD ["-hooks","/app/hooks.json","-ip","0.0.0.0","-port","9000","-tls-min-version","1.2","-verbose"]
