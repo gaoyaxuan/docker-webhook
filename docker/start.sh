@@ -1,18 +1,20 @@
 #!/bin/sh
 
-export USER=wh
+set -e
+
+WH_USER=wh
+
 setids() {
     PUID=${PUID:-1000}
     PGID=${PGID:-1000}
-    groupmod -o -g "$PGID" $USER
-    usermod -o -u "$PUID" $USER
+    groupmod -o -g "$PGID" "$WH_USER"
+    usermod -o -u "$PUID" "$WH_USER"
 }
 
 setids
 
-# Exec CMD or S6 by default if nothing present
-if [ $# -gt 0 ];then
-    gosu "$USER"  "/app/webhook" "$@"
+if [ $# -gt 0 ]; then
+    exec gosu "$WH_USER" "/app/webhook" "$@"
 else
-    gosu "$USER" "/app/webhook"
+    exec gosu "$WH_USER" "/app/webhook"
 fi
