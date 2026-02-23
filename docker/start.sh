@@ -14,7 +14,7 @@ setids() {
 setids
 
 if [ $# -gt 0 ]; then
-    exec gosu "$WH_USER" "/app/webhook" "$@"
+    exec su-exec "$WH_USER" /app/webhook "$@"
 else
-    exec gosu "$WH_USER" "/app/webhook"
+    exec su-exec "$WH_USER" /app/webhook
 fi

@@ -17,7 +17,8 @@ RUN apk --no-cache --no-progress add \
     bash \
     jq \
     curl \
-    openssl
+    openssl \
+    su-exec
 
 WORKDIR /app
 
